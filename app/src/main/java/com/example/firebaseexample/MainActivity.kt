@@ -1,5 +1,6 @@
 package com.example.firebaseexample
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -26,8 +27,8 @@ class MainActivity : AppCompatActivity() {
             override fun onAuthStateChanged(p0: FirebaseAuth) {
                 val user = p0.currentUser
                 if (user != null) {
-                    Timber.d("onAuthStateChanged: signed in ${p0.uid}")
-                    Toast.makeText(this@MainActivity, "Successfully signed in with $p0", Toast.LENGTH_SHORT).show()
+                    Timber.d("onAuthStateChanged: signed in ${user.uid}")
+                    Toast.makeText(this@MainActivity, "Successfully signed in with ${user.email}", Toast.LENGTH_SHORT).show()
                 } else {
                     Timber.d("onAuthStateChanged signed out")
                     Toast.makeText(this@MainActivity, "Successfully signed out", Toast.LENGTH_SHORT).show()
@@ -35,12 +36,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.createUser.setOnClickListener {
+        binding.createUserButton.setOnClickListener {
             val email = binding.textEmail.text.toString()
             val pass = binding.textPassword.text.toString()
-            Toast.makeText(this, "User created successfully", Toast.LENGTH_SHORT).show()
             if (email != "" && pass != "") {
                 auth.createUserWithEmailAndPassword(email, pass)
+                Toast.makeText(this, "User created successfully", Toast.LENGTH_SHORT).show()
             } else Toast.makeText(this, "You didn't fill in all the fields", Toast.LENGTH_SHORT).show()
         }
 
@@ -55,6 +56,11 @@ class MainActivity : AppCompatActivity() {
         binding.emailSignOutButton.setOnClickListener {
             auth.signOut()
             Toast.makeText(this@MainActivity, "Signing out", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.addItemScreen.setOnClickListener {
+            val intent = Intent(this, AddToDatabase::class.java)
+            startActivity(intent)
         }
     }
 

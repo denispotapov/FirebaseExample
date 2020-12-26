@@ -38,7 +38,7 @@
                 android:maxLines="1" />
 
             <Button
-                android:id="@+id/create_user"
+                android:id="@+id/create_user_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
