@@ -59,7 +59,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.addItemScreen.setOnClickListener {
-            val intent = Intent(this, AddToDatabase::class.java)
+            val intent = Intent(this, AddToDatabaseActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding.viewItemsScreen.setOnClickListener {
+            val intent = Intent(this, ViewDatabaseActivity::class.java)
             startActivity(intent)
         }
     }

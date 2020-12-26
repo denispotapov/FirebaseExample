@@ -3,15 +3,14 @@ package com.example.firebaseexample
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.firebaseexample.databinding.ActivityAddToDatabaseBinding
+import com.example.firebaseexample.databinding.ActivityViewDatabaseBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import timber.log.Timber
 
+class ViewDatabaseActivity : AppCompatActivity() {
 
-class AddToDatabase : AppCompatActivity() {
-
-    private lateinit var binding: ActivityAddToDatabaseBinding
+    private lateinit var binding: ActivityViewDatabaseBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var authListener: FirebaseAuth.AuthStateListener
     private lateinit var firebaseDatabase: FirebaseDatabase
@@ -19,8 +18,8 @@ class AddToDatabase : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_to_database)
-        binding = ActivityAddToDatabaseBinding.inflate(layoutInflater)
+        setContentView(R.layout.activity_view_database)
+        binding = ActivityViewDatabaseBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         auth = FirebaseAuth.getInstance()
@@ -33,14 +32,14 @@ class AddToDatabase : AppCompatActivity() {
                 if (user != null) {
                     Timber.d("onAuthStateChanged: signed in ${user.uid}")
                     Toast.makeText(
-                        this@AddToDatabase,
+                        this@ViewDatabaseActivity,
                         "Successfully signed in with ${user.email}",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
                     Timber.d("onAuthStateChanged signed out")
                     Toast.makeText(
-                        this@AddToDatabase,
+                        this@ViewDatabaseActivity,
                         "Successfully signed out",
                         Toast.LENGTH_SHORT
                     ).show()
@@ -50,25 +49,29 @@ class AddToDatabase : AppCompatActivity() {
 
         myRef.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
-                val value = snapshot.child("Favorite Foods").getValue(String::class.java)
-                Timber.d("Value is $value")
+                showData(snapshot)
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Timber.w("Failed to read value: ${error.toException()}")
             }
         })
+    }
 
-        binding.buttonAddNewFood.setOnClickListener {
-            Timber.d("OnClick: Attempting to add object to database")
-            val newFood = binding.editTextAddNewFood.text.toString()
-            if (newFood != "") {
-                val user = auth.currentUser
-                val userID = user?.uid
-                myRef.child(userID!!).child("Food").child("Favorite Foods").child(newFood)
-                    .setValue(true)
-                Toast.makeText(this, "Adding $newFood to Database", Toast.LENGTH_SHORT).show()
-                binding.editTextAddNewFood.setText("")
+    private fun showData(snapshot: DataSnapshot) {
+        for (ds in snapshot.children) {
+            val userID = auth.currentUser?.uid
+            if (userID != null) {
+                val userName = ds.child(userID).getValue(UserInformation::class.java)?.name
+                val userEmail = ds.child(userID).getValue(UserInformation::class.java)?.email
+                val userPhone = ds.child(userID).getValue(UserInformation::class.java)?.phoneNum
+
+                binding.tvUserName.text = userName
+                binding.tvUserEmail.text = userEmail
+                binding.tvUserPhone.text = userPhone
+
+                Timber.d("showData: name $userName")
+                Timber.d("showData: email $userEmail")
+                Timber.d("showData: phone $userPhone")
             }
         }
     }
