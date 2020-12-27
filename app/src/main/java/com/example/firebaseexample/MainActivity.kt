@@ -68,6 +68,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.addUserInformation.setOnClickListener {
+            val intent = Intent(this, AddUserInformationActivity::class.java)
+            startActivity(intent)
+        }
+
         binding.uploadScreen.setOnClickListener {
             val intent = Intent(this, UploadActivity::class.java)
             startActivity(intent)

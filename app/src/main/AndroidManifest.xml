@@ -14,7 +14,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FirebaseExample">
-        <activity android:name=".UploadActivity"></activity>
+        <activity android:name=".AddUserInformationActivity"></activity>
+        <activity android:name=".UploadActivity" />
         <activity android:name=".ViewDatabaseActivity" />
         <activity android:name=".AddToDatabaseActivity" />
         <activity android:name=".MainActivity">
