@@ -18,7 +18,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-
             <EditText
                 android:id="@+id/text_email"
                 android:layout_width="match_parent"
@@ -26,7 +25,6 @@
                 android:hint="e-mail"
                 android:inputType="textEmailAddress"
                 android:maxLines="1" />
-
 
             <EditText
                 android:id="@+id/text_password"
@@ -85,7 +83,17 @@
                 android:layout_marginTop="16dp"
                 android:text="View Database Contents"
                 android:textColor="@color/white"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/upload_screen"
+                style="?android:textAppearanceSmall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="Upload"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
 
         </LinearLayout>
     </ScrollView>
