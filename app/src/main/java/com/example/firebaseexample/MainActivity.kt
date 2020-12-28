@@ -77,6 +77,11 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, UploadActivity::class.java)
             startActivity(intent)
         }
+
+        binding.errorScreen.setOnClickListener {
+            val intent = Intent(this, CrashReportActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onStart() {

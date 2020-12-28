@@ -14,6 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FirebaseExample">
+        <activity android:name=".CrashReportActivity"></activity>
         <activity android:name=".AddUserInformationActivity" />
         <activity android:name=".UploadActivity" />
         <activity android:name=".ViewDatabaseActivity" />
@@ -35,7 +36,6 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
             android:resource="@color/purple_200" />
-
     </application>
 
 </manifest>
