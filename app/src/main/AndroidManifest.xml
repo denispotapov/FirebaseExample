@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FirebaseExample">
-        <activity android:name=".CrashReportActivity"></activity>
+        <activity android:name=".googleauth.BaseActivity"></activity>
+        <activity android:name=".googleauth.GoogleAuthActivity" />
+        <activity android:name=".CrashReportActivity" />
         <activity android:name=".AddUserInformationActivity" />
         <activity android:name=".UploadActivity" />
         <activity android:name=".ViewDatabaseActivity" />

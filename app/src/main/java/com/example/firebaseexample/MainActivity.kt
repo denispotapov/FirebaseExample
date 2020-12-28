@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.firebaseexample.databinding.ActivityMainBinding
+import com.example.firebaseexample.googleauth.GoogleAuthActivity
 import com.google.firebase.auth.FirebaseAuth
 import timber.log.Timber
 
@@ -28,10 +29,15 @@ class MainActivity : AppCompatActivity() {
                 val user = p0.currentUser
                 if (user != null) {
                     Timber.d("onAuthStateChanged: signed in ${user.uid}")
-                    Toast.makeText(this@MainActivity, "Successfully signed in with ${user.email}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this@MainActivity,
+                        "Successfully signed in with ${user.email}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
                     Timber.d("onAuthStateChanged signed out")
-                    Toast.makeText(this@MainActivity, "Successfully signed out", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, "Successfully signed out", Toast.LENGTH_SHORT)
+                        .show()
                 }
             }
         }
@@ -42,7 +48,13 @@ class MainActivity : AppCompatActivity() {
             if (email != "" && pass != "") {
                 auth.createUserWithEmailAndPassword(email, pass)
                 Toast.makeText(this, "User created successfully", Toast.LENGTH_SHORT).show()
-            } else Toast.makeText(this, "You didn't fill in all the fields", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(this, "You didn't fill in all the fields", Toast.LENGTH_SHORT)
+                .show()
+        }
+
+        binding.googleSignInButton.setOnClickListener {
+            val intent = Intent(this, GoogleAuthActivity::class.java)
+            startActivity(intent)
         }
 
         binding.emailSignInButton.setOnClickListener {
@@ -50,7 +62,8 @@ class MainActivity : AppCompatActivity() {
             val pass = binding.textPassword.text.toString()
             if (email != "" && pass != "") {
                 auth.signInWithEmailAndPassword(email, pass)
-            } else Toast.makeText(this, "You didn't fill in all the fields", Toast.LENGTH_SHORT).show()
+            } else Toast.makeText(this, "You didn't fill in all the fields", Toast.LENGTH_SHORT)
+                .show()
         }
 
         binding.emailSignOutButton.setOnClickListener {
