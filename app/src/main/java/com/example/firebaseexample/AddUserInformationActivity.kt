@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.firebaseexample.databinding.ActivityAddUserInformationBinding
+import com.example.firebaseexample.models.UserInformation
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import timber.log.Timber
