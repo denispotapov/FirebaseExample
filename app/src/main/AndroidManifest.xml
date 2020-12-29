@@ -14,18 +14,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FirebaseExample">
-        <activity android:name=".googleauth.BaseActivity"></activity>
+        <activity android:name=".googleauth.BaseActivity" />
         <activity android:name=".googleauth.GoogleAuthActivity" />
         <activity android:name=".CrashReportActivity" />
         <activity android:name=".AddUserInformationActivity" />
         <activity android:name=".UploadActivity" />
-        <activity android:name=".ViewDatabaseActivity" />
+        <activity android:name=".ViewDatabaseActivity">
+            <intent-filter>
+                <action android:name="ViewDatabaseActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         <activity android:name=".AddToDatabaseActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <intent-filter>
+                <action android:name="MainActivity" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 

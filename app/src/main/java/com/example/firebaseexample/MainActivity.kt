@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.firebaseexample.databinding.ActivityMainBinding
 import com.example.firebaseexample.googleauth.GoogleAuthActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.messaging.FirebaseMessaging
 import timber.log.Timber
 
 
@@ -95,6 +97,15 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, CrashReportActivity::class.java)
             startActivity(intent)
         }
+
+        FirebaseMessaging.getInstance().subscribeToTopic("Weather")
+            .addOnCompleteListener { task ->
+                var msg = "Subscription was successful"
+                if (!task.isSuccessful) {
+                    msg = "Failed to subscribe"
+                }
+                Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
+            }
     }
 
     override fun onStart() {

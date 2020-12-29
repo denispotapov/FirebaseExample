@@ -11,6 +11,7 @@ import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.example.firebaseexample.MainActivity
+import com.example.firebaseexample.ViewDatabaseActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import timber.log.Timber
@@ -21,11 +22,11 @@ class FirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(p0: RemoteMessage) {
         val title = p0.notification?.title
         val message = p0.notification?.body
+        val clickAction = p0.notification?.clickAction
         Timber.d("onMessageReceived: Title: $title Message: $message")
 
-        if (title != null && message != null) {
-            //sendNotification(title, message)
-            sendNotification1(title, message)
+        if (title != null && message != null && clickAction != null) {
+            sendNotification(title, message, clickAction)
         }
     }
 
@@ -33,9 +34,23 @@ class FirebaseMessagingService : FirebaseMessagingService() {
         super.onDeletedMessages()
     }
 
-    private fun sendNotification1(title: String, messageBody: String) {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+    private fun sendNotification(title: String, messageBody: String, clickAction: String) {
+        val intent: Intent
+        when (clickAction) {
+            "ViewDatabaseActivity" -> {
+                intent = Intent(this, ViewDatabaseActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            }
+            "MainActivity" -> {
+                intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            }
+            else -> {
+                intent = Intent(this, MainActivity::class.java)
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            }
+        }
+
         val pendingIntent = PendingIntent.getActivity(
             this, 0 /* Request code */, intent,
             PendingIntent.FLAG_ONE_SHOT
