@@ -11,7 +11,6 @@ import android.media.RingtoneManager
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import com.example.firebaseexample.MainActivity
-import com.example.firebaseexample.ViewDatabaseActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import timber.log.Timber
@@ -35,7 +34,12 @@ class FirebaseMessagingService : FirebaseMessagingService() {
     }
 
     private fun sendNotification(title: String, messageBody: String, clickAction: String) {
-        val intent: Intent
+
+        val intent = Intent(this, MainActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+        // For push notifications in desired activity
+        /*val intent: Intent
         when (clickAction) {
             "ViewDatabaseActivity" -> {
                 intent = Intent(this, ViewDatabaseActivity::class.java)
@@ -49,7 +53,7 @@ class FirebaseMessagingService : FirebaseMessagingService() {
                 intent = Intent(this, MainActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             }
-        }
+        }*/
 
         val pendingIntent = PendingIntent.getActivity(
             this, 0 /* Request code */, intent,
